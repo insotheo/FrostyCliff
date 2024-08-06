@@ -9,4 +9,8 @@
 	<AppendTargetFrameworkToOutDir>False</AppendTargetFrameworkToOutDir>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Silk.NET" Version="2.21.0" PrivateAssets="compile" />
+  </ItemGroup>
+
 </Project>

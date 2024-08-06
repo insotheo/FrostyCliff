@@ -1,12 +1,14 @@
 ﻿using FrostyCliff.Core;
+using TestPingPong;
 
 class Program
 {
     static void Main()
     {
-        Log.Trace("Hello, World!");
         Log.Info("Hello, World!");
-        Log.Warn("Hello, World!");
-        Log.Error("Hello, World!");
+        using(MyGame game = new MyGame())
+        {
+            game.Run();
+        }
     }
 }
