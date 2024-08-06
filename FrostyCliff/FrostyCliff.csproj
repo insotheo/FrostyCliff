@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+	<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+	<OutDir>..\Bin\FrostyCliffEngine</OutDir>
+	<TargetDir>..\Bin\FrostyCliffEngine\engineTarget</TargetDir>
+	<Company>Insotheo</Company>
+	<AppendTargetFrameworkToOutDir>False</AppendTargetFrameworkToOutDir>
+  </PropertyGroup>
+
+</Project>
