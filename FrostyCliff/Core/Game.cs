@@ -4,6 +4,7 @@ using FrostyCliff.Core.WindowSettings;
 using Silk.NET.OpenGL;
 using Silk.NET.Input;
 using FrostyCliff.InputSystem;
+using FrostyCliff.Graphics;
 
 namespace FrostyCliff.Core
 {
@@ -15,13 +16,17 @@ namespace FrostyCliff.Core
         private int _windowHeight;
         protected int WindowHeight => _windowHeight;
 
+        private Color _backgroundColor;
+        protected Color BackgroundColor => _backgroundColor;
+
         private IWindow _window;
         private GL _gl;
 
-        protected Game(int width, int height, string title, bool VSync = false, WindowBorderType border = WindowBorderType.Resizable, WindowSettings.WindowState state = WindowSettings.WindowState.Normal)
-        {
+        protected Game(int width, int height, string title, Color background, bool VSync = false, WindowBorderType border = WindowBorderType.Resizable, WindowSettings.WindowState state = WindowSettings.WindowState.Normal)
+        { 
             _windowWidth = width;
             _windowHeight = height;
+            _backgroundColor = background;
 
             WindowOptions windowOptions = WindowOptions.Default;
             windowOptions.Size = new Silk.NET.Maths.Vector2D<int>(width, height);
@@ -34,6 +39,7 @@ namespace FrostyCliff.Core
 
             _window.Load += OnWindowLoad;
             _window.Update += OnWindowUpdate;
+            _window.Render += OnWindowRender;
             _window.Resize += OnWindowResize;
             _window.Closing += WindowClosing;
         }
@@ -54,7 +60,13 @@ namespace FrostyCliff.Core
             }
 
             _gl = _window.CreateOpenGL();
+            _gl.ClearColor(_backgroundColor.R, _backgroundColor.G, _backgroundColor.B, _backgroundColor.Alpha);
             OnBegin();
+        }
+
+        private void OnWindowRender(double obj)
+        {
+            _gl.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
         }
 
         private void OnWindowUpdate(double deltaTime)

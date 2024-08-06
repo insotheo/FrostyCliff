@@ -1,11 +1,12 @@
 ﻿using FrostyCliff.Core;
 using FrostyCliff.Core.WindowSettings;
+using FrostyCliff.Graphics;
 
 namespace TestPingPong
 {
     internal class MyGame : Game
     {
-        public MyGame() : base(1280, 720, "Demo ping pong",
+        public MyGame() : base(1280, 720, "Demo ping pong", new Color(0.6f, 0.45f, 0.7f),
             true, WindowBorderType.Resizable, WindowState.Normal)
         {
             
