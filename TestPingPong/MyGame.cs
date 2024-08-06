@@ -10,5 +10,16 @@ namespace TestPingPong
         {
             
         }
+
+        protected override void OnResized()
+        {
+            Log.Trace($"width = {WindowWidth} ; height = {WindowHeight}");
+        }
+
+        protected override void OnClosing()
+        {
+            Log.Info("Goodbye");
+        }
+
     }
 }

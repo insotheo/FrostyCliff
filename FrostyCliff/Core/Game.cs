@@ -1,6 +1,7 @@
 ﻿using System;
 using Silk.NET.Windowing;
 using FrostyCliff.Core.WindowSettings;
+using Silk.NET.OpenGL;
 
 namespace FrostyCliff.Core
 {
@@ -13,6 +14,7 @@ namespace FrostyCliff.Core
         protected int WindowHeight => _windowHeight;
 
         private IWindow _window;
+        private GL _gl;
 
         protected Game(int width, int height, string title, bool VSync = false, WindowBorderType border = WindowBorderType.Resizable, WindowSettings.WindowState state = WindowSettings.WindowState.Normal)
         {
@@ -28,9 +30,26 @@ namespace FrostyCliff.Core
 
             _window = Window.Create(windowOptions);
 
+            _window.Load += OnWindowLoad;
+            _window.Resize += OnWindowResize;
+            _window.Closing += WindowClosing;
         }
 
+        private void WindowClosing() => OnClosing();
 
+        private void OnWindowLoad()
+        {
+            _gl = _window.CreateOpenGL();
+            OnBegin();
+        }
+
+        private void OnWindowResize(Silk.NET.Maths.Vector2D<int> size)
+        {
+            _windowWidth = size.X;
+            _windowHeight = size.Y;
+            _gl.Viewport(_window.Size);
+            OnResized();
+        }
 
         public void Run()
         {
@@ -46,6 +65,14 @@ namespace FrostyCliff.Core
         {
             _window.Dispose();
         }
+
+        #region WindowEvents
+
+        protected virtual void OnBegin() { }
+        protected virtual void OnResized() { }
+        protected virtual void OnClosing() { }
+
+        #endregion
 
         #region WindowSettingsAndInfo
         protected void SetVSync(bool vsync) => _window.VSync = vsync;
