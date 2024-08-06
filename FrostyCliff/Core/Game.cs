@@ -2,6 +2,8 @@
 using Silk.NET.Windowing;
 using FrostyCliff.Core.WindowSettings;
 using Silk.NET.OpenGL;
+using Silk.NET.Input;
+using FrostyCliff.InputSystem;
 
 namespace FrostyCliff.Core
 {
@@ -31,16 +33,33 @@ namespace FrostyCliff.Core
             _window = Window.Create(windowOptions);
 
             _window.Load += OnWindowLoad;
+            _window.Update += OnWindowUpdate;
             _window.Resize += OnWindowResize;
             _window.Closing += WindowClosing;
         }
 
-        private void WindowClosing() => OnClosing();
-
         private void OnWindowLoad()
         {
+            IInputContext inputContext = _window.CreateInput();
+            for(int i = 0; i < inputContext.Keyboards.Count; i++)
+            {
+                inputContext.Keyboards[i].KeyDown += Input.OnWindowKeyDown;
+                inputContext.Keyboards[i].KeyUp += Input.OnWindowKeyUp;
+            }
+            for(int i = 0; i < inputContext.Mice.Count; i++)
+            {
+                inputContext.Mice[i].MouseDown += Input.OnWindowButtonDown;
+                inputContext.Mice[i].MouseUp += Input.OnWindowButtonUp;
+                inputContext.Mice[i].MouseMove += Input.OnWindowMouseMove;
+            }
+
             _gl = _window.CreateOpenGL();
             OnBegin();
+        }
+
+        private void OnWindowUpdate(double deltaTime)
+        {
+            Input.ClearUp();
         }
 
         private void OnWindowResize(Silk.NET.Maths.Vector2D<int> size)
@@ -50,6 +69,8 @@ namespace FrostyCliff.Core
             _gl.Viewport(_window.Size);
             OnResized();
         }
+
+        private void WindowClosing() => OnClosing();
 
         public void Run()
         {
@@ -75,6 +96,7 @@ namespace FrostyCliff.Core
         #endregion
 
         #region WindowSettingsAndInfo
+
         protected void SetVSync(bool vsync) => _window.VSync = vsync;
         protected bool GetVSync() => _window.VSync;
 
@@ -83,6 +105,7 @@ namespace FrostyCliff.Core
 
         protected void SetWindowState(WindowSettings.WindowState state) => _window.WindowState = (Silk.NET.Windowing.WindowState)state;
         protected WindowSettings.WindowState GetWindowState() =>(WindowSettings.WindowState)_window.WindowState;
+       
         #endregion
     }
 }
