@@ -7,17 +7,18 @@ namespace TestPingPong
 {
     internal class MyLevel : Level2D
     {
-        GamePawn2D player = new GamePawn2D(new Transform2D { Position = new Vector2D(0, 0), Scale = new Vector2D(0.25f, 0.5f), Rotation = 0 });
+        GamePawn2D player = new GamePawn2D(new Transform2D { Position = new Vector2D(0, 0), Scale = new Vector2D(0.5f, 0.5f), Rotation = 0 });
 
         protected override void OnBegin()
         {
             Log.Info("Hello from MyLevel!");
-            player.RendererObject = new Rectangle2D(new Color(0, 0, 0, 0.75f));
+            player.RendererObject = new Triangle2D(new Color(1, 1, 1));
             LevelsPawns.Add(player);
             Log.Info(Math.EuclideanDistance(player.Transform.Position, new Vector2D(1, 1)));
         }
-
+        
         float speed = 0.01f;
+        int deg = 0;
 
         protected override void OnUpdate(double deltaTime)
         {
@@ -29,6 +30,14 @@ namespace TestPingPong
                 player.Transform.Position.X += speed;
             if (Input.IsKeyDown(KeyCode.A))
                 player.Transform.Position.X -= speed;
+
+            if (Input.IsKeyUp(KeyCode.Z))
+                deg += 1;
+            if (Input.IsKeyUp(KeyCode.X))
+                deg -= 1;
+
+
+            player.Transform.Rotation += Math.DegToRad(deg);
         }
 
     }

@@ -5,29 +5,15 @@ namespace FrostyCliff.Graphics
     internal static class BufferWorker
     {
 
-        internal static unsafe void RectangleBuffer(ref uint vbo, ref uint vao, ref uint ebo, ref GL gl)
+        private static unsafe void makeBuffers(ref uint vbo, ref uint vao, ref uint ebo, ref GL gl, float[] vertices, uint[] indices)
         {
-            float[] vertices =
-            {
-                0.5f,   0.5f,  
-                0.5f,  -0.5f,  
-                -0.5f, -0.5f,  
-                -0.5f,  0.5f,  
-            };
-
-            uint[] indices =
-            {
-                0u, 1u, 3u,
-                1u, 2u, 3u
-            };
-
             vao = gl.GenVertexArray();
             gl.BindVertexArray(vao);
 
             vbo = gl.GenBuffer();
             gl.BindBuffer(BufferTargetARB.ArrayBuffer, vbo);
 
-            fixed(float* buffer = vertices)
+            fixed (float* buffer = vertices)
             {
                 gl.BufferData(BufferTargetARB.ArrayBuffer, (nuint)(vertices.Length * sizeof(float)), buffer, BufferUsageARB.StaticDraw);
             }
@@ -35,7 +21,7 @@ namespace FrostyCliff.Graphics
             ebo = gl.GenBuffer();
             gl.BindBuffer(BufferTargetARB.ElementArrayBuffer, ebo);
 
-            fixed(uint* buffer = indices)
+            fixed (uint* buffer = indices)
             {
                 gl.BufferData(BufferTargetARB.ElementArrayBuffer, (nuint)(indices.Length * sizeof(uint)), buffer, BufferUsageARB.StaticDraw);
             }
@@ -45,6 +31,42 @@ namespace FrostyCliff.Graphics
 
             gl.BindBuffer(BufferTargetARB.ArrayBuffer, 0);
             gl.BindVertexArray(0);
+        }
+
+        internal static void RectangleBuffer(ref uint vbo, ref uint vao, ref uint ebo, ref GL gl)
+        {
+            float[] vertices =
+            {
+                0.5f,   0.5f,
+                0.5f,  -0.5f,
+                -0.5f, -0.5f,
+                -0.5f,  0.5f,
+            };
+
+            uint[] indices =
+            {
+                0u, 1u, 3u,
+                1u, 2u, 3u
+            };
+
+            makeBuffers(ref vbo, ref vao, ref ebo, ref gl, vertices, indices);
+        }
+
+        internal static void TriangleBuffer(ref uint vbo, ref uint vao, ref uint ebo, ref GL gl)
+        {
+            float[] vertices =
+            {
+                0.0f,   0.5f,
+                -0.5f, -0.5f,
+                0.5f,  -0.5f,
+            };
+
+            uint[] indices =
+            {
+                0u, 1u, 2u,
+            };
+
+            makeBuffers(ref vbo, ref vao, ref ebo, ref gl, vertices, indices);
         }
 
     }
