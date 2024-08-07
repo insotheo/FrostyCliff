@@ -1,4 +1,6 @@
-﻿using Silk.NET.OpenGL;
+﻿using FrostyCliff.Core;
+using Silk.NET.OpenGL;
+using System.Numerics;
 
 namespace FrostyCliff.Graphics
 {
@@ -8,15 +10,20 @@ namespace FrostyCliff.Graphics
 
         public Rectangle2D(Color color)
         {
-            _program = ShaderWorker.MakeShaderProgram(ref _gl, ShadersSource.FigureFragmentShader);
+            _program = ShaderWorker.MakeShaderProgram(ref _gl, ShadersSource.FigureVertexShader, ShadersSource.FigureFragmentShader);
             BufferWorker.RectangleBuffer(ref _vbo, ref _vao, ref _ebo, ref _gl);
             _color = color;
         }
 
-        internal unsafe override void Draw()
+        internal unsafe override void Draw(ref Transform2D transform)
         {
             _gl.UseProgram(_program);
             _gl.BindVertexArray(_vao);
+
+            Matrix4x4 model = CalculateModel(ref transform);
+
+            int modelLoc = _gl.GetUniformLocation(_program, "model");
+            _gl.UniformMatrix4(modelLoc, 1, false, (float*)&model);
 
             int colorLoc = _gl.GetUniformLocation(_program, "uColor");
             _gl.Uniform4(colorLoc, _color.R, _color.G, _color.B, _color.Alpha);

@@ -5,10 +5,10 @@ namespace FrostyCliff.Graphics
 {
     internal static class ShaderWorker
     {
-        internal static uint MakeShaderProgram(ref GL gl, string fragmentShaderSource)
+        internal static uint MakeShaderProgram(ref GL gl, string vertexShaderSource, string fragmentShaderSource)
         {
             uint vertex = gl.CreateShader(ShaderType.VertexShader);
-            gl.ShaderSource(vertex, ShadersSource.VertexShader);
+            gl.ShaderSource(vertex, vertexShaderSource);
             gl.CompileShader(vertex);
             CheckShaderCompileStatus(gl, vertex);
 

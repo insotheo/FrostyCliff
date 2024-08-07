@@ -74,13 +74,14 @@ namespace FrostyCliff.Core
             _gl.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             foreach(GamePawn2D pawn in LevelsManager.GetCurrentLevel().LevelsPawns
                 .Where(x => x.RendererObject != null)){
-                pawn.RendererObject.Draw();
+                pawn.RendererObject.Draw(ref pawn.Transform);
             }
         }
 
         private void OnWindowUpdate(double deltaTime)
         {
             Input.ClearUp();
+            LevelsManager.GetCurrentLevel().OnLevelUpdate(deltaTime);
         }
 
         private void OnWindowResize(Silk.NET.Maths.Vector2D<int> size)
