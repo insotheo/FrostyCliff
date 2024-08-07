@@ -4,7 +4,9 @@ using FrostyCliff.Core.WindowSettings;
 using Silk.NET.OpenGL;
 using Silk.NET.Input;
 using FrostyCliff.InputSystem;
+using FrostyCliff.LevelsManagement;
 using FrostyCliff.Graphics;
+using System.Linq;
 
 namespace FrostyCliff.Core
 {
@@ -60,13 +62,20 @@ namespace FrostyCliff.Core
             }
 
             _gl = _window.CreateOpenGL();
+            _gl.Enable(EnableCap.Blend);
+            _gl.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
             _gl.ClearColor(_backgroundColor.R, _backgroundColor.G, _backgroundColor.B, _backgroundColor.Alpha);
+            RendererObject2D.InitOpenGL(_gl);
             OnBegin();
         }
 
         private void OnWindowRender(double obj)
         {
             _gl.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+            foreach(GamePawn2D pawn in LevelsManager.GetCurrentLevel().LevelsPawns
+                .Where(x => x.RendererObject != null)){
+                pawn.RendererObject.Draw();
+            }
         }
 
         private void OnWindowUpdate(double deltaTime)

@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FrostyCliff.Graphics;
+using System;
 
 namespace FrostyCliff.Core
 {
     public class GamePawn2D : IDisposable
     {
+        public RendererObject2D RendererObject;
+
 
         public void Dispose() { }
     }
