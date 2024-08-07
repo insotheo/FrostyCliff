@@ -80,8 +80,8 @@ namespace FrostyCliff.Core
 
         private void OnWindowUpdate(double deltaTime)
         {
-            Input.ClearUp();
             LevelsManager.GetCurrentLevel().OnLevelUpdate(deltaTime);
+            Input.ClearUp();
         }
 
         private void OnWindowResize(Silk.NET.Maths.Vector2D<int> size)
