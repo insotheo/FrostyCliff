@@ -7,7 +7,7 @@ namespace TestPingPong
 {
     internal class MyLevel : Level2D
     {
-        GamePawn2D player = new GamePawn2D(new Transform2D { Position = new Vector2D(0, 0), Scale = new Vector2D(0.5f, 0.5f), Rotation = 0 });
+        GamePawn2D player = new GamePawn2D(new Transform2D { Position = new Vector2D(0, 0), Scale = new Vector2D(0.25f, 0.5f), Rotation = 0 });
 
         protected override void OnBegin()
         {

@@ -1,4 +1,5 @@
 ﻿using FrostyCliff.Core;
+using System.Numerics;
 
 namespace FrostyCliff.Graphics
 {
@@ -72,6 +73,17 @@ namespace FrostyCliff.Graphics
         public override string ToString()
         {
             return $"{{ x = {X} ; y = {Y}}}";
+        }
+
+        public void Normalize()
+        {
+            if (X == 0 && Y == 0)
+            {
+                return;
+            }
+            float m = (float)System.Math.Sqrt(X * X + Y * Y);
+            X /= m;
+            Y /= m;
         }
 
     }
