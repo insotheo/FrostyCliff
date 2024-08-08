@@ -16,6 +16,7 @@ namespace TestPingPong
             player.RendererObject = new Sprite2D(Path.Combine(Directory.GetCurrentDirectory(), "GameAssets", "logo.png"));
             LevelsPawns.Add(player);
             Log.Info(Math.EuclideanDistance(player.Transform.Position, new Vector2D(1, 1)));
+            SetCamera2DZoom(500f);
         }
         
         float speed = 0.01f;
@@ -24,13 +25,13 @@ namespace TestPingPong
         protected override void OnUpdate(double deltaTime)
         {
             if (Input.IsKeyDown(KeyCode.W))
-                player.Transform.Position.Y += speed;
+                GetCamera2D().Position.Y += speed;
             if (Input.IsKeyDown(KeyCode.S))
-                player.Transform.Position.Y -= speed;
+                GetCamera2D().Position.Y -= speed;
             if (Input.IsKeyDown(KeyCode.D))
-                player.Transform.Position.X += speed;
+                GetCamera2D().Position.X += speed;
             if (Input.IsKeyDown(KeyCode.A))
-                player.Transform.Position.X -= speed;
+                GetCamera2D().Position.X -= speed;
 
             if (Input.IsKeyUp(KeyCode.Z))
                 deg += 1;

@@ -7,9 +7,10 @@
             #version 330 core
             layout (location = 0) in vec2 aPosition;
             uniform mat4 model;
+            uniform mat4 cameraMatrix;
             void main()
             {
-                gl_Position = model * vec4(aPosition, 0.0, 1.0);
+                gl_Position = cameraMatrix * model * vec4(aPosition, 0.0, 1.0);
             }
             ";
 
@@ -43,12 +44,13 @@
             layout(location = 1) in vec2 aTexCoord;
 
             uniform mat4 model;
+            uniform mat4 cameraMatrix;            
 
             out vec2 TexCoord;
             
             void main()
             {
-                gl_Position = model * vec4(aPos, 0.0, 1.0);
+                gl_Position = cameraMatrix * model * vec4(aPos, 0.0, 1.0);
                 TexCoord = aTexCoord;
             }
             ";

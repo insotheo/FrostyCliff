@@ -7,6 +7,7 @@ using FrostyCliff.InputSystem;
 using FrostyCliff.LevelsManagement;
 using FrostyCliff.Graphics;
 using System.Linq;
+using System.Numerics;
 
 namespace FrostyCliff.Core
 {
@@ -72,10 +73,11 @@ namespace FrostyCliff.Core
 
         private void OnWindowRender(double obj)
         {
+            Matrix4x4 camMatrix = LevelsManager.GetCurrentLevel().GetLevelCamera2D().GetCameraMatrix(ref _window);
             _gl.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             foreach(GamePawn2D pawn in LevelsManager.GetCurrentLevel().LevelsPawns
                 .Where(x => x.RendererObject != null)){
-                pawn.RendererObject.Draw(ref pawn.Transform);
+                pawn.RendererObject.Draw(ref pawn.Transform, camMatrix);
             }
         }
 

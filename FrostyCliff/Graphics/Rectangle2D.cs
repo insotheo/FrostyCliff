@@ -15,7 +15,7 @@ namespace FrostyCliff.Graphics
             _color = color;
         }
 
-        internal unsafe override void Draw(ref Transform2D transform)
+        internal unsafe override void Draw(ref Transform2D transform, Matrix4x4 cameraMatrix)
         {
             _gl.UseProgram(_program);
             _gl.BindVertexArray(_vao);
@@ -24,6 +24,9 @@ namespace FrostyCliff.Graphics
 
             int modelLoc = _gl.GetUniformLocation(_program, "model");
             _gl.UniformMatrix4(modelLoc, 1, false, (float*)&model);
+
+            int cameraMatrixLoc = _gl.GetUniformLocation(_program, "cameraMatrix");
+            _gl.UniformMatrix4(cameraMatrixLoc, 1, false, (float*)&cameraMatrix);
 
             int colorLoc = _gl.GetUniformLocation(_program, "uColor");
             _gl.Uniform4(colorLoc, _color.R, _color.G, _color.B, _color.Alpha);

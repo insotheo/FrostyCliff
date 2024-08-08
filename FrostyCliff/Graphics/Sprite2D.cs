@@ -1,5 +1,6 @@
 ﻿using FrostyCliff.Core;
 using Silk.NET.OpenGL;
+using System.Numerics;
 
 namespace FrostyCliff.Graphics
 {
@@ -21,7 +22,7 @@ namespace FrostyCliff.Graphics
             BufferWorker.SpriteBuffer(ref _vbo, ref _vao, ref _ebo, ref _gl);
         }
 
-        internal unsafe override void Draw(ref Transform2D transform)
+        internal unsafe override void Draw(ref Transform2D transform, Matrix4x4 cameraMatrix)
         {
             _gl.UseProgram(_program);
 
@@ -31,10 +32,12 @@ namespace FrostyCliff.Graphics
             var model = CalculateModel(ref transform);
 
             int modelLoc = _gl.GetUniformLocation(_program, "model");
+            int cameraMatrixLoc = _gl.GetUniformLocation(_program, "cameraMatrix");
 
             unsafe
             {
                 _gl.UniformMatrix4(modelLoc, 1, false, (float*)&model);
+                _gl.UniformMatrix4(cameraMatrixLoc, 1, false, (float*)&cameraMatrix);
             }
 
             _gl.BindVertexArray(_vao);

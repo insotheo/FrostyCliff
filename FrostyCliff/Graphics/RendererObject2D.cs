@@ -12,7 +12,7 @@ namespace FrostyCliff.Graphics
 
         internal static void InitOpenGL(GL gl) => _gl = gl;
 
-        internal unsafe virtual void Draw(ref Transform2D transform) { }
+        internal unsafe virtual void Draw(ref Transform2D transform, Matrix4x4 cameraMatrix) { }
 
         protected static Matrix4x4 CalculateModel(ref Transform2D transform)
         {
