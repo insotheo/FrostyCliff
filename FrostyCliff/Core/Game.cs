@@ -85,6 +85,10 @@ namespace FrostyCliff.Core
         {
             LevelsManager.GetCurrentLevel().OnLevelUpdate(deltaTime);
             Input.ClearUp();
+
+            float mouseWorldX = (Input.GetMousePosition().X - (float)_windowWidth / 2f) / LevelsManager.GetCurrentLevel().GetLevelCamera2D().Zoom + LevelsManager.GetCurrentLevel().GetLevelCamera2D().Position.X;
+            float mouseWorldY = ((float)_windowHeight / 2f - Input.GetMousePosition().Y) / LevelsManager.GetCurrentLevel().GetLevelCamera2D().Zoom + LevelsManager.GetCurrentLevel().GetLevelCamera2D().Position.Y;
+            Input.SetMouseWorldPosition(new Vector2D(mouseWorldX, mouseWorldY));
         }
 
         private void OnWindowResize(Silk.NET.Maths.Vector2D<int> size)

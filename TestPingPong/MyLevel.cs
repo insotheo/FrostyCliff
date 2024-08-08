@@ -38,6 +38,12 @@ namespace TestPingPong
             if (Input.IsKeyUp(KeyCode.X))
                 deg -= 1;
 
+            if (Input.IsKeyDown(KeyCode.M))
+            {
+                Log.Warn(Input.GetMousePosition());
+                Log.Warn(Input.GetMouseWorldPosition());
+            }
+
 
             player.Transform.Rotation += Math.DegToRad(deg);
         }

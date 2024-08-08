@@ -12,6 +12,7 @@ namespace FrostyCliff.InputSystem
         private static HashSet<MouseButton> _buttonsDown = new HashSet<MouseButton>();
         private static HashSet<MouseButton> _buttonsUp = new HashSet<MouseButton>();
         private static Vector2D _mousePosition = Vector2D.ZeroVector2D();
+        private static Vector2D _mouseWorldPosition = Vector2D.ZeroVector2D();
 
         public static bool IsKeyDown(KeyCode key) => _keysDown.Contains(key);
         public static bool IsKeyUp(KeyCode key) => _keysUp.Contains(key);
@@ -22,6 +23,7 @@ namespace FrostyCliff.InputSystem
         public static bool IsAnyMouseButtonDown() => _buttonsDown.Count > 0;
         public static bool IsAnyMouseButtonUp() => _buttonsUp.Count > 0;
         public static Vector2D GetMousePosition() => _mousePosition;
+        public static Vector2D GetMouseWorldPosition() => _mouseWorldPosition;
 
         internal static void ClearUp()
         {
@@ -62,5 +64,8 @@ namespace FrostyCliff.InputSystem
             _mousePosition.X = vector.X;
             _mousePosition.Y = vector.Y;
         }
+
+        internal static void SetMouseWorldPosition(Vector2D worldPosition) => _mouseWorldPosition = worldPosition;
+
     }
 }
