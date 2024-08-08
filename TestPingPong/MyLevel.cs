@@ -2,6 +2,7 @@
 using FrostyCliff.Graphics;
 using FrostyCliff.InputSystem;
 using FrostyCliff.LevelsManagement;
+using System.IO;
 
 namespace TestPingPong
 {
@@ -12,7 +13,7 @@ namespace TestPingPong
         protected override void OnBegin()
         {
             Log.Info("Hello from MyLevel!");
-            player.RendererObject = new Triangle2D(new Color(1, 1, 1));
+            player.RendererObject = new Sprite2D(Path.Combine(Directory.GetCurrentDirectory(), "GameAssets", "logo.png"));
             LevelsPawns.Add(player);
             Log.Info(Math.EuclideanDistance(player.Transform.Position, new Vector2D(1, 1)));
         }

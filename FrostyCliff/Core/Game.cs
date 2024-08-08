@@ -66,6 +66,7 @@ namespace FrostyCliff.Core
             _gl.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
             _gl.ClearColor(_backgroundColor.R, _backgroundColor.G, _backgroundColor.B, _backgroundColor.Alpha);
             RendererObject2D.InitOpenGL(_gl);
+            Texture2D.InitOpenGL(_gl);
             OnBegin();
         }
 

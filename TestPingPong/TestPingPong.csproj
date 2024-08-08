@@ -11,4 +11,10 @@
     <ProjectReference Include="..\FrostyCliff\FrostyCliff.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="GameAssets\logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
