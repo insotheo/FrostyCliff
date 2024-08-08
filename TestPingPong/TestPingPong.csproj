@@ -12,6 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="GameAssets\bloodAndWine.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="GameAssets\logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

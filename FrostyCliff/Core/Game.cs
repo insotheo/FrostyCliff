@@ -8,6 +8,7 @@ using FrostyCliff.LevelsManagement;
 using FrostyCliff.Graphics;
 using System.Linq;
 using System.Numerics;
+using FrostyCliff.AudioSystem;
 
 namespace FrostyCliff.Core
 {
@@ -26,7 +27,7 @@ namespace FrostyCliff.Core
         private GL _gl;
 
         protected Game(int width, int height, string title, Color background, bool VSync = false, WindowBorderType border = WindowBorderType.Resizable, WindowSettings.WindowState state = WindowSettings.WindowState.Normal)
-        { 
+        {
             _windowWidth = width;
             _windowHeight = height;
             _backgroundColor = background;
@@ -68,6 +69,7 @@ namespace FrostyCliff.Core
             _gl.ClearColor(_backgroundColor.R, _backgroundColor.G, _backgroundColor.B, _backgroundColor.Alpha);
             RendererObject2D.InitOpenGL(_gl);
             Texture2D.InitOpenGL(_gl);
+
             OnBegin();
         }
 
@@ -99,7 +101,11 @@ namespace FrostyCliff.Core
             OnResized();
         }
 
-        private void WindowClosing() => OnClosing();
+        private void WindowClosing()
+        {
+            AudiosHandler.StopAllSounds();
+            OnClosing();
+        }
 
         public void Run()
         {
@@ -114,6 +120,7 @@ namespace FrostyCliff.Core
         public void Dispose()
         {
             _window.Dispose();
+            _gl.Dispose();
         }
 
         #region WindowEvents

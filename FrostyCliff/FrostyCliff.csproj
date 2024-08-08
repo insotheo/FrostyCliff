@@ -10,8 +10,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CSCore" Version="1.2.1.2" PrivateAssets="compile"/>
     <PackageReference Include="Silk.NET" Version="2.21.0" PrivateAssets="compile" />
-    <PackageReference Include="StbImageSharp" Version="2.27.14" PrivateAssets="compile"/>
+    <PackageReference Include="StbImageSharp" Version="2.27.14" PrivateAssets="compile" />
   </ItemGroup>
 
 </Project>

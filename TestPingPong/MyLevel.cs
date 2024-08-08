@@ -3,16 +3,19 @@ using FrostyCliff.Graphics;
 using FrostyCliff.InputSystem;
 using FrostyCliff.LevelsManagement;
 using System.IO;
+using FrostyCliff.AudioSystem;
 
 namespace TestPingPong
 {
     internal class MyLevel : Level2D
     {
         GamePawn2D player = new GamePawn2D(new Transform2D { Position = new Vector2D(0, 0), Scale = new Vector2D(0.5f, 0.5f), Rotation = 0 });
+        Audio bloodAndWine;
 
         protected override void OnBegin()
         {
             Log.Info("Hello from MyLevel!");
+            bloodAndWine = new Audio(Path.Combine(Directory.GetCurrentDirectory(), "GameAssets", "bloodAndWine.wav"));
             player.RendererObject = new Sprite2D(Path.Combine(Directory.GetCurrentDirectory(), "GameAssets", "logo.png"));
             LevelsPawns.Add(player);
             Log.Info(Math.EuclideanDistance(player.Transform.Position, new Vector2D(1, 1)));
@@ -38,14 +41,28 @@ namespace TestPingPong
             if (Input.IsKeyUp(KeyCode.X))
                 deg -= 1;
 
-            if (Input.IsKeyDown(KeyCode.M))
+            if (Input.IsKeyUp(KeyCode.M))
             {
-                Log.Warn(Input.GetMousePosition());
-                Log.Warn(Input.GetMouseWorldPosition());
+                if(!AudioPlayer.IsPlaying(ref bloodAndWine))
+                {
+                    AudioPlayer.Play(ref bloodAndWine);
+                }
+                else
+                {
+                    AudioPlayer.Stop(ref bloodAndWine);
+                }
+            }
+            if (Input.IsKeyUp(KeyCode.N))
+            {
+                Log.Info(AudioPlayer.IsPlaying(ref bloodAndWine));
             }
 
-
             player.Transform.Rotation += Math.DegToRad(deg);
+        }
+
+        protected override void OnDisposed()
+        {
+            bloodAndWine.Dispose();
         }
 
     }

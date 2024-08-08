@@ -27,5 +27,12 @@ namespace FrostyCliff.Core
 
         public static float EuclideanDistance(Vector2D pointOne, Vector2D pointTwo) => (float)Sqrt(Pow((pointOne.X - pointTwo.X), 2) + Pow((pointOne.Y - pointTwo.Y), 2));
 
+        public static float Clamp(float  value, float min, float max)
+        {
+            if (value <= min) return min;
+            if (value >= max) return max;
+            else return value;
+        }
+
     }
 }
