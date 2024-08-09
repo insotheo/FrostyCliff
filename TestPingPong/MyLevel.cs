@@ -10,13 +10,14 @@ namespace TestPingPong
     internal class MyLevel : Level2D
     {
         GamePawn2D player = new GamePawn2D(new Transform2D { Position = new Vector2D(0, 0), Scale = new Vector2D(0.5f, 0.5f), Rotation = 0 });
-        Audio bloodAndWine;
+        Audio bloodAndWine = new Audio(Path.Combine(Directory.GetCurrentDirectory(), "GameAssets", "bloodAndWine.wav"));
 
         protected override void OnBegin()
         {
             Log.Info("Hello from MyLevel!");
-            bloodAndWine = new Audio(Path.Combine(Directory.GetCurrentDirectory(), "GameAssets", "bloodAndWine.wav"));
             player.RendererObject = new Sprite2D(Path.Combine(Directory.GetCurrentDirectory(), "GameAssets", "logo.png"));
+            (player.RendererObject as Sprite2D).ColorMask.Alpha = 0.5f;
+            bloodAndWine.Volume = 2f;
             LevelsPawns.Add(player);
             Log.Info(Math.EuclideanDistance(player.Transform.Position, new Vector2D(1, 1)));
             SetCamera2DZoom(500f);

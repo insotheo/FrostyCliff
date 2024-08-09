@@ -8,8 +8,22 @@ namespace FrostyCliff.Graphics
     {
         private Texture2D _texture;
 
+        private Color _colorMask;
+        public Color ColorMask
+        {
+            get => _colorMask;
+            set
+            {
+                _colorMask.R = Math.Clamp(value.R, 0.0f, 1.0f);
+                _colorMask.G = Math.Clamp(value.G, 0.0f, 1.0f);
+                _colorMask.B = Math.Clamp(value.B, 0.0f, 1.0f);
+                _colorMask.Alpha = Math.Clamp(value.Alpha, 0.0f, 1.0f);
+            }
+        }
+
         public Sprite2D(Texture2D texture)
         {
+            _colorMask = new Color(1.0f, 1.0f, 1.0f, 1.0f);
             _texture = texture;
             _program = ShaderWorker.MakeShaderProgram(ref _gl, ShadersSource.SpriteVertexShader, ShadersSource.SpriteFragmentShader);
             BufferWorker.SpriteBuffer(ref _vbo, ref _vao, ref _ebo, ref _gl);
@@ -17,6 +31,7 @@ namespace FrostyCliff.Graphics
 
         public Sprite2D(string path)
         {
+            _colorMask = new Color(1.0f, 1.0f, 1.0f, 1.0f);
             _texture = new Texture2D(path);
             _program = ShaderWorker.MakeShaderProgram(ref _gl, ShadersSource.SpriteVertexShader, ShadersSource.SpriteFragmentShader);
             BufferWorker.SpriteBuffer(ref _vbo, ref _vao, ref _ebo, ref _gl);
@@ -33,11 +48,13 @@ namespace FrostyCliff.Graphics
 
             int modelLoc = _gl.GetUniformLocation(_program, "model");
             int cameraMatrixLoc = _gl.GetUniformLocation(_program, "cameraMatrix");
+            int colorMaskLoc = _gl.GetUniformLocation(_program, "colorMask");
 
             unsafe
             {
                 _gl.UniformMatrix4(modelLoc, 1, false, (float*)&model);
                 _gl.UniformMatrix4(cameraMatrixLoc, 1, false, (float*)&cameraMatrix);
+                _gl.Uniform4(colorMaskLoc, _colorMask.R, _colorMask.G, _colorMask.B, _colorMask.Alpha);
             }
 
             _gl.BindVertexArray(_vao);

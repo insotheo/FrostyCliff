@@ -31,10 +31,11 @@
 
             in vec2 TexCoord;
             uniform sampler2D texture1;
+            uniform vec4 colorMask;            
 
             void main()
             {
-                FragColor = texture(texture1, TexCoord) * vec4(1.0, 1.0, 1.0, 1.0);
+                FragColor = texture(texture1, TexCoord) * colorMask;
             }
             ";
 

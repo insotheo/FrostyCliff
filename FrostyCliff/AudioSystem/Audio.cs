@@ -22,7 +22,7 @@ namespace FrostyCliff.AudioSystem
         public float Volume
         {
             get => _volume;
-            set => _volume = Core.Math.Clamp(value, 0.0f, 1.0f);
+            set => _volume = Core.Math.Clamp(value, 0.0f, 2.0f);
         }
 
         internal void Play()
