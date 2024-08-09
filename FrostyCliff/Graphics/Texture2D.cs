@@ -11,12 +11,16 @@ namespace FrostyCliff.Graphics
         private static GL _gl;
         internal uint Texture;
 
+        private Vector2D _originalTextureSize;
+
         internal static void InitOpenGL(GL gl) => _gl = gl;
 
         public Texture2D(string pathToImage)
         {
             loadImage(pathToImage);
         }
+
+        internal Vector2D GetOriginalTextureSize() => _originalTextureSize;
 
         private unsafe void loadImage(string path)
         {
@@ -29,7 +33,8 @@ namespace FrostyCliff.Graphics
             _gl.ActiveTexture(TextureUnit.Texture0);
             _gl.BindTexture(TextureTarget.Texture2D, Texture);
             ImageResult result = ImageResult.FromMemory(File.ReadAllBytes(path), ColorComponents.RedGreenBlueAlpha);
-            fixed(byte* ptr = result.Data)
+            _originalTextureSize = new Vector2D(result.Width, result.Height);
+            fixed (byte* ptr = result.Data)
             {
                 _gl.TexImage2D(GLEnum.Texture2D, 0, (int)InternalFormat.Rgba, (uint)result.Width, (uint)result.Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, ptr);
             }

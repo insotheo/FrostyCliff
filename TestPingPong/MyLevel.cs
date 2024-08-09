@@ -17,13 +17,14 @@ namespace TestPingPong
             Log.Info("Hello from MyLevel!");
             player.RendererObject = new Sprite2D(Path.Combine(Directory.GetCurrentDirectory(), "GameAssets", "logo.png"));
             (player.RendererObject as Sprite2D).ColorMask.Alpha = 0.5f;
+            player.Transform.Scale = (player.RendererObject as Sprite2D).GetOriginalTextureScale() / 2;
             bloodAndWine.Volume = 2f;
             LevelsPawns.Add(player);
             Log.Info(Math.EuclideanDistance(player.Transform.Position, new Vector2D(1, 1)));
-            SetCamera2DZoom(500f);
+            SetCamera2DZoom(1f);
         }
         
-        float speed = 0.01f;
+        float speed = 1f;
         int deg = 0;
 
         protected override void OnUpdate(double deltaTime)

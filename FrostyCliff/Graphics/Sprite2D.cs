@@ -37,6 +37,8 @@ namespace FrostyCliff.Graphics
             BufferWorker.SpriteBuffer(ref _vbo, ref _vao, ref _ebo, ref _gl);
         }
 
+        public Vector2D GetOriginalTextureScale() => _texture.GetOriginalTextureSize();
+
         internal unsafe override void Draw(ref Transform2D transform, Matrix4x4 cameraMatrix)
         {
             _gl.UseProgram(_program);
