@@ -24,7 +24,7 @@ namespace TestPingPong
             SetCamera2DZoom(2f);
         }
         
-        float speed = 1f;
+        float speed = 5f;
         int deg = 0;
 
         protected override void OnUpdate(double deltaTime)
