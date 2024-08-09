@@ -21,7 +21,7 @@ namespace TestPingPong
             bloodAndWine.Volume = 2f;
             LevelsPawns.Add(player);
             Log.Info(Math.EuclideanDistance(player.Transform.Position, new Vector2D(1, 1)));
-            SetCamera2DZoom(1f);
+            SetCamera2DZoom(2f);
         }
         
         float speed = 1f;
