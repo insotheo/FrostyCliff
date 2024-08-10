@@ -3,7 +3,8 @@ using CSCore;
 using CSCore.SoundOut;
 using System;
 using System.IO;
-using CSCore.Codecs;
+using FrostyCliff.AssetsManager;
+using CSCore.Codecs.WAV;
 
 namespace FrostyCliff.AudioSystem
 {
@@ -13,9 +14,14 @@ namespace FrostyCliff.AudioSystem
         private IWaveSource _waveStream;
         private float _volume;
 
-        public Audio(string pathToFile)
+        public Audio(Asset asset)
         {
-            loadAudio(pathToFile);
+            if(asset == null)
+            {
+                Log.Error("Asset is null!");
+                return;
+            }
+            loadAudio(asset.GetStream());
             _volume = 1.0f;
         }
 
@@ -53,15 +59,15 @@ namespace FrostyCliff.AudioSystem
             AudiosHandler.WaveSources.Remove(_waveStream);
         }
 
-        private void loadAudio(string path)
+        private void loadAudio(MemoryStream ms)
         {
-            if (!File.Exists(path))
+            if (ms == null)
             {
-                Log.Error($"File \"{Path.GetFileName(path)}\" doesn't exist!");
+                Log.Error($"Can't load audio from null asset!");
                 return;
             }
 
-            _waveStream = CodecFactory.Instance.GetCodec(path);
+            _waveStream = new WaveFileReader(ms);
             AudiosHandler.AddIWaveSource(_waveStream);
         }
     }

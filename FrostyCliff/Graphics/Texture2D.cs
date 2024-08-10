@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using FrostyCliff.AssetsManager;
 using FrostyCliff.Core;
 using Silk.NET.OpenGL;
 using StbImageSharp;
@@ -15,24 +16,34 @@ namespace FrostyCliff.Graphics
 
         internal static void InitOpenGL(GL gl) => _gl = gl;
 
-        public Texture2D(string pathToImage)
+        public Texture2D(Asset asset)
         {
-            loadImage(pathToImage);
+            if(asset == null)
+            {
+                Log.Error("Can't load image from null asset");
+                return;
+            }
+            loadImage(asset.GetStream());
+        }
+
+        internal Texture2D(MemoryStream ms)
+        {
+            loadImage(ms);
         }
 
         internal Vector2D GetOriginalTextureSize() => _originalTextureSize;
 
-        private unsafe void loadImage(string path)
+        private unsafe void loadImage(MemoryStream ms)
         {
-            if (!File.Exists(path))
+            if (ms == null)
             {
-                Log.Error($"File {Path.GetFileName(path)} not found!");
+                Log.Error("Can't load image from asset");
                 return;
             }
             Texture = _gl.GenTexture();
             _gl.ActiveTexture(TextureUnit.Texture0);
             _gl.BindTexture(TextureTarget.Texture2D, Texture);
-            ImageResult result = ImageResult.FromMemory(File.ReadAllBytes(path), ColorComponents.RedGreenBlueAlpha);
+            ImageResult result = ImageResult.FromStream(ms, ColorComponents.RedGreenBlueAlpha);
             _originalTextureSize = new Vector2D(result.Width, result.Height);
             fixed (byte* ptr = result.Data)
             {

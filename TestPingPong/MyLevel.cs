@@ -2,20 +2,20 @@
 using FrostyCliff.Graphics;
 using FrostyCliff.InputSystem;
 using FrostyCliff.LevelsManagement;
-using System.IO;
+using FrostyCliff.AssetsManager;
 using FrostyCliff.AudioSystem;
 
 namespace TestPingPong
 {
     internal class MyLevel : Level2D
     {
-        GamePawn2D player = new GamePawn2D(new Transform2D { Position = new Vector2D(0, 0), Scale = new Vector2D(0.5f, 0.5f), Rotation = 0 });
-        Audio bloodAndWine = new Audio(Path.Combine(Directory.GetCurrentDirectory(), "GameAssets", "bloodAndWine.wav"));
+        GamePawn2D player = new GamePawn2D(new Transform2D { Position = new Vector2D(0, 0), Scale = new Vector2D(1, 1), Rotation = 0 });
+        Audio bloodAndWine = new Audio(AssetsLoader.Load("bloodAndWine.wav"));
 
         protected override void OnBegin()
         {
             Log.Info("Hello from MyLevel!");
-            player.RendererObject = new Sprite2D(Path.Combine(Directory.GetCurrentDirectory(), "GameAssets", "logo.png"));
+            player.RendererObject = new Sprite2D(AssetsLoader.Load("logo.png"));
             (player.RendererObject as Sprite2D).ColorMask.Alpha = 0.5f;
             player.Transform.Scale = (player.RendererObject as Sprite2D).GetOriginalTextureScale() / 2;
             bloodAndWine.Volume = 2f;

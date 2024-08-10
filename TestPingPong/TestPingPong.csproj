@@ -12,10 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="GameAssets\bloodAndWine.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="GameAssets\logo.png">
+    <None Update="myassets.fcpack">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

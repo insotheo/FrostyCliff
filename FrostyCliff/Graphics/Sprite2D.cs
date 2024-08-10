@@ -1,4 +1,5 @@
-﻿using FrostyCliff.Core;
+﻿using FrostyCliff.AssetsManager;
+using FrostyCliff.Core;
 using Silk.NET.OpenGL;
 using System.Numerics;
 
@@ -29,10 +30,10 @@ namespace FrostyCliff.Graphics
             BufferWorker.SpriteBuffer(ref _vbo, ref _vao, ref _ebo, ref _gl);
         }
 
-        public Sprite2D(string path)
+        public Sprite2D(Asset asset)
         {
             _colorMask = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-            _texture = new Texture2D(path);
+            _texture = new Texture2D(asset);
             _program = ShaderWorker.MakeShaderProgram(ref _gl, ShadersSource.SpriteVertexShader, ShadersSource.SpriteFragmentShader);
             BufferWorker.SpriteBuffer(ref _vbo, ref _vao, ref _ebo, ref _gl);
         }
