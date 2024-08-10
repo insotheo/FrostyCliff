@@ -1,4 +1,5 @@
 ﻿using FrostyCliff.Graphics;
+using FrostyCliff.Physics;
 using System;
 
 namespace FrostyCliff.Core
@@ -7,6 +8,7 @@ namespace FrostyCliff.Core
     {
         public Transform2D Transform;
         public RendererObject2D RendererObject;
+        public PhysicsObject2D PhysicsObject;
 
         public GamePawn2D(Transform2D transform)
         {
