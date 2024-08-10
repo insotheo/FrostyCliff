@@ -8,7 +8,7 @@ namespace FrostyCliff.Core
     {
         public Transform2D Transform;
         public RendererObject2D RendererObject;
-        public PhysicsObject2D PhysicsObject;
+        internal PhysicsObject2D PhysicsObject;
 
         public GamePawn2D(Transform2D transform)
         {
@@ -19,6 +19,11 @@ namespace FrostyCliff.Core
         internal void OnPawnUpdate(double dt) => OnUpdate(dt);
 
         public void Dispose() { }
+
+        public void CreatePhysicsObject()
+        {
+            PhysicsObject = new PhysicsObject2D(Transform);
+        }
 
         protected virtual void OnBegin() { }
         protected virtual void OnUpdate(double deltaTime) { }
