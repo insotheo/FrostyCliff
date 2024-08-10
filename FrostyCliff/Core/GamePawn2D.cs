@@ -13,6 +13,12 @@ namespace FrostyCliff.Core
             Transform = transform;
         }
 
+        internal void OnPawnBegin() => OnBegin();
+        internal void OnPawnUpdate(double dt) => OnUpdate(dt);
+
         public void Dispose() { }
+
+        protected virtual void OnBegin() { }
+        protected virtual void OnUpdate(double deltaTime) { }
     }
 }

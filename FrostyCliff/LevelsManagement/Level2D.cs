@@ -17,8 +17,24 @@ namespace FrostyCliff.LevelsManagement
             _levelsCamera = new Camera2D();
         }
 
-        internal void OnLevelBegin() => OnBegin();
-        internal void OnLevelUpdate(double deltaTime) => OnUpdate(deltaTime);
+        internal void OnLevelBegin()
+        {
+            foreach(GamePawn2D pawn in LevelsPawns)
+            {
+                pawn.OnPawnBegin();
+            }
+            OnBegin();
+        }
+
+        internal void OnLevelUpdate(double deltaTime)
+        {
+            foreach(GamePawn2D pawn in LevelsPawns)
+            {
+                pawn.OnPawnUpdate(deltaTime);
+            }
+            OnUpdate(deltaTime);
+        }
+
         internal Camera2D GetLevelCamera2D() => _levelsCamera;
 
         public void Dispose()
