@@ -14,7 +14,10 @@ namespace FrostyCliff.Physics
 
         internal void Update(double dt)
         {
+            if (_isSimulating)
+            {
 
+            }
         }
 
         public void AddPhysicsObject(PhysicsObject2D physicsObject) => _physicsObjects.Add(physicsObject);
