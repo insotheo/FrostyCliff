@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using FrostyCliff.Core;
+using System.Collections.Generic;
 
 namespace FrostyCliff.Physics
 {
@@ -16,14 +17,37 @@ namespace FrostyCliff.Physics
         {
             if (_isSimulating)
             {
-
+                foreach(PhysicsObject2D physicsObject in _physicsObjects)
+                {
+                    physicsObject.Update(dt);
+                }
+                CheckCollisions();
             }
         }
 
-        public void AddPhysicsObject(PhysicsObject2D physicsObject) => _physicsObjects.Add(physicsObject);
-        public void RemovePhysicsObject(PhysicsObject2D physicsObject) => _physicsObjects.Remove(physicsObject);
+        public void AddPhysicsObject(GamePawn2D physicsObject) => _physicsObjects.Add(physicsObject.PhysicsObject);
+        public void RemovePhysicsObject(GamePawn2D physicsObject) => _physicsObjects.Remove(physicsObject.PhysicsObject);
         public void RemoveAllPhysicsObjects() => _physicsObjects.Clear();
         public void SetIsSimulating(bool value) => _isSimulating = value;
         public bool GetIsSimulating() => _isSimulating;
+
+
+        private void CheckCollisions()
+        {
+            for (int i = 0; i < _physicsObjects.Count; i++)
+            {
+                for (int j = i + 1; j < _physicsObjects.Count; j++)
+                {
+                    PhysicsObject2D p1 = _physicsObjects[i];
+                    PhysicsObject2D p2 = _physicsObjects[j];
+
+                    if (Collision2D.CheckCollision(p1, p2))
+                    {
+                        Log.Warn("!");
+                    }
+                }
+            }
+        }
+
     }
 }

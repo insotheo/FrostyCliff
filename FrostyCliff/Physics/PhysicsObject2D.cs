@@ -1,4 +1,5 @@
 ﻿using FrostyCliff.Core;
+using FrostyCliff.Graphics;
 
 namespace FrostyCliff.Physics
 {
@@ -13,6 +14,14 @@ namespace FrostyCliff.Physics
             BodyType = bodyType;
         }
 
+        internal void Update(double dt)
+        {
+            if(BodyType == PhysicsBodyType.Kinematic)
+            {
+                Vector2D velocity = new Vector2D(0, -1);
+                Transform.Position += velocity * (float)dt * 9.10f;
+            }
+        }      
 
     }
 }

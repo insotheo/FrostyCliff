@@ -37,6 +37,10 @@ namespace FrostyCliff.LevelsManagement
             foreach(GamePawn2D pawn in LevelsPawns)
             {
                 pawn.OnPawnUpdate(deltaTime);
+                if(pawn.PhysicsObject != null)
+                {
+                    pawn.Transform = pawn.PhysicsObject.Transform;
+                }
             }
             OnUpdate(deltaTime);
         }
@@ -48,6 +52,8 @@ namespace FrostyCliff.LevelsManagement
             LevelsPawns.Clear();
             OnDisposed();
         }
+
+        protected void InitPhysicsWorld2D() => PhysicsWorld = new PhysicsWorld2D();
 
         protected void SetCamera2D(Camera2D camera) => _levelsCamera = camera;
         protected Camera2D GetCamera2D() => _levelsCamera;
