@@ -7,21 +7,31 @@ namespace FrostyCliff.Physics
     {
         internal Transform2D Transform;
         internal PhysicsBodyType BodyType;
+        internal Vector2D Velocity;
 
         internal PhysicsObject2D(Transform2D initTransform, PhysicsBodyType bodyType)
         {
             Transform = initTransform;
             BodyType = bodyType;
+            if(bodyType == PhysicsBodyType.Kinematic)
+            {
+                Velocity = new Vector2D(0, 0);
+            }
         }
 
         internal void Update(double dt)
         {
             if(BodyType == PhysicsBodyType.Kinematic)
             {
-                Vector2D velocity = new Vector2D(0, -1);
-                Transform.Position += velocity * (float)dt * 9.10f;
+                Velocity.Y -= (float)dt * 2f;
+                Transform.Position += Velocity;
             }
         }      
+
+        internal void HandleCollision(Direction2D direction, ref PhysicsObject2D collidedObject)
+        {
+
+        }
 
     }
 }

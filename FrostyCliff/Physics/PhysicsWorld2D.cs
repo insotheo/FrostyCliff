@@ -41,9 +41,11 @@ namespace FrostyCliff.Physics
                     PhysicsObject2D p1 = _physicsObjects[i];
                     PhysicsObject2D p2 = _physicsObjects[j];
 
-                    if (Collision2D.CheckCollision(p1, p2))
+                    Direction2D dir = Collision2D.CheckCollision(p1, p2);
+                    if (dir != Direction2D.None)
                     {
-                        Log.Warn("!");
+                        p1.HandleCollision(dir, ref p2);
+                        p2.HandleCollision(dir, ref p1);
                     }
                 }
             }

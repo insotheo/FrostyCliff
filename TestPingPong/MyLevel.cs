@@ -10,9 +10,8 @@ namespace TestPingPong
 {
     internal class MyLevel : Level2D
     {
-        GamePawn2D player = new GamePawn2D(new Transform2D { Position = new Vector2D(0, 0), Scale = new Vector2D(1, 1), Rotation = Math.DegToRad(70) });
-        GamePawn2D rect = new GamePawn2D(new Transform2D { Position = new Vector2D(100, 200), Scale = new Vector2D(70, 40), Rotation = Math.DegToRad(30) });
-        Audio bloodAndWine = new Audio(AssetsLoader.Load("bloodAndWine.wav"));
+        GamePawn2D player = new GamePawn2D(new Transform2D { Position = new Vector2D(0, 0), Scale = new Vector2D(1, 1), Rotation = 0 });
+        GamePawn2D rect = new GamePawn2D(new Transform2D { Position = new Vector2D(100, 200), Scale = new Vector2D(70, 40), Rotation = 0 });
 
         protected override void OnBegin()
         {
@@ -29,8 +28,6 @@ namespace TestPingPong
 
             PhysicsWorld.AddPhysicsObject(player);
             PhysicsWorld.AddPhysicsObject(rect);
-            
-            bloodAndWine.Volume = 2f;
 
             LevelsPawns.Add(player);
             LevelsPawns.Add(rect);
@@ -39,8 +36,7 @@ namespace TestPingPong
             //SetCamera2DZoom(2f);
         }
         
-        float speed = 5f;
-        int deg = 0;
+        const float speed = 5f;
 
         protected override void OnUpdate(double deltaTime)
         {
@@ -53,34 +49,6 @@ namespace TestPingPong
             if (Input.IsKeyDown(KeyCode.A))
                 GetCamera2D().Position.X -= speed;
 
-            if (Input.IsKeyUp(KeyCode.Z))
-                deg += 1;
-            if (Input.IsKeyUp(KeyCode.X))
-                deg -= 1;
-
-            if (Input.IsKeyUp(KeyCode.M))
-            {
-                if(!AudioPlayer.IsPlaying(ref bloodAndWine))
-                {
-                    AudioPlayer.Play(ref bloodAndWine);
-                }
-                else
-                {
-                    AudioPlayer.Stop(ref bloodAndWine);
-                }
-            }
-            if (Input.IsKeyUp(KeyCode.N))
-            {
-                Log.Info(AudioPlayer.IsPlaying(ref bloodAndWine));
-            }
-
-            player.Transform.Rotation += Math.DegToRad(deg);
         }
-
-        protected override void OnDisposed()
-        {
-            bloodAndWine.Dispose();
-        }
-
     }
 }
