@@ -1,6 +1,5 @@
 ﻿using FrostyCliff.Core;
 using FrostyCliff.Graphics;
-using FrostyCliff.Physics;
 using System;
 using System.Collections.Generic;
 
@@ -9,7 +8,6 @@ namespace FrostyCliff.LevelsManagement
     public class Level2D : IDisposable
     {
         public List<GamePawn2D> LevelsPawns;
-        public PhysicsWorld2D PhysicsWorld;
 
         private Camera2D _levelsCamera;
 
