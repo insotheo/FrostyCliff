@@ -7,6 +7,7 @@ namespace FrostyCliff.Core
     {
 
         public static float PI = 3.1415926535f;
+        public static float G = 9.81f;
 
         public static float DegToRad(float deg) => (deg * PI) / 180;
 

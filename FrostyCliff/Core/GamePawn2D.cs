@@ -20,9 +20,9 @@ namespace FrostyCliff.Core
 
         public void Dispose() { }
 
-        public void CreatePhysicsObject(PhysicsBodyType bodyType)
+        public void CreatePhysicsObject(PhysicsBodyType bodyType, float mass)
         {
-            PhysicsObject = new PhysicsObject2D(Transform, bodyType);
+            PhysicsObject = new PhysicsObject2D(Transform, bodyType, mass);
         }
 
         protected virtual void OnBegin() { }

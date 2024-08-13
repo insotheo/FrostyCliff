@@ -23,8 +23,8 @@ namespace TestPingPong
 
             rect.RendererObject = new Rectangle2D(new Color(1f, 0f, 1f));
 
-            player.CreatePhysicsObject(PhysicsBodyType.Static);
-            rect.CreatePhysicsObject(PhysicsBodyType.Kinematic);
+            player.CreatePhysicsObject(PhysicsBodyType.Static, 1);
+            rect.CreatePhysicsObject(PhysicsBodyType.Kinematic, 1);
 
             PhysicsWorld.AddPhysicsObject(player);
             PhysicsWorld.AddPhysicsObject(rect);

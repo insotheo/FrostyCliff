@@ -17,7 +17,7 @@ namespace FrostyCliff.Physics
         {
             if (_isSimulating)
             {
-                foreach(PhysicsObject2D physicsObject in _physicsObjects)
+                foreach (PhysicsObject2D physicsObject in _physicsObjects)
                 {
                     physicsObject.Update(dt);
                 }
